@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+            <title>Waveform.js</title>
+
+            <link rel="stylesheet" href="styles.css">
+
+            <script defer type="text/javascript" src='./js/Waveform.js'></script>
+            <script defer type="text/javascript" src='./js/home.js'></script>
+            <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    </head>
+
+    <body>
+            <header id="homeHeader">
+                <img src="./resources/WaveformJS.png">
+                <div class="headerAlign"><h1>WaveForm.js</h1></div>
+                <div id="homeWaveContainer">
+                    <div class="audioControlButton" id="homePlayButton">Play</div>
+                    <div class="audioControlButton" id="homeThemeButton">Color</div>
+                </div>
+            </header>
+
+            <ul id="navBar">
+                <li><a class="selectedNav">Home</a></li>
+                <li><a href="/documentation">Documentation</a></li>
+                <li><a href="/examples">Examples</a></li>
+            </ul>
+
+            <div id="contentBody">
+                <h2><b>WaveForm.js</b> is a customizable audio waveform visualization, built on top of the Web Audio API.</h2>
+                
+                <p>Users are able to navigate through the music/audio by clicking on the visualizer; other controls
+                    can be designed using the <b>WaveForm.js</b> api.
+                </p>
+
+                <p>Unlike existing audio visualizers, <b>WaveForm.js</b> does not use the HTML5 Canvas and instead creates a visualization 
+                using CSS classes created and passed by the user. This allows for a far greater level of customization, at the cost 
+                of greater performance overhead.</p>
+
+                <h2><b>Quick Start</b></h2>
+
+                <p>Import the library into your web page:</p>
+
+                <pre class="prettyprint"><code>&ltscript defer type="text/javascript" src='./Waveform.js'>&lt/script></code></pre>
+
+                <p>Create a container where the waveform is to appear:</p>
+
+                <pre class="prettyprint"><code>&lt;div id="visualizerContainer">&lt;/div></code></pre>
+
+                <p>In JavaScript, create a new <b>SingleWaveForm</b> object and select its container, audio source, bar count and class names:</p>
+
+                <pre class="prettyprint"><code>// Create new WaveForm object
+var visualization = new SingleWaveForm(
+    containerID = "visualizerContainer", 
+    audio = "./path_to_audio/audio.mp3", 
+    barCount = 64, 
+    barClassNotPlayed = "firstClassName",
+    barClassIsPlayed = "secondClassName",
+)</code></pre>
+
+                <p>From there, controls can be constructed using the WaveForm object's API:</p>
+
+                <pre class="prettyprint"><code>// Add play button
+document.getElementById("playButton").addEventListener('click', function() {
+    visualization.playAudio()
+})
+
+// Add change color button
+document.getElementById("changeColorButton").addEventListener('click', function() {
+    visualization.changeNotPlayedBarClass("thirdClassName")
+    visualization.changeIsPlayedBarClass("fourthClassName")
+})</code></pre>
+
+                <h2><b>Browser Support</b></h2>
+
+                <p><b>WaveForm.js</b> should run on all modern browsers supporting Web Audio.</p>
+            </div>
+
+            <footer>
+                <p>WaveForm.js by <a href="https://github.com/FSq-Poplar">FSq-Poplar</a> is licensed under 
+                an <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+            </footer>
+    </body>
+</html>

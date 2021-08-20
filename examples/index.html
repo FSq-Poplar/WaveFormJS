@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+            <title>Waveform.js</title>
+
+            <link rel="stylesheet" href="../styles.css">
+            <link rel="stylesheet" href="styles.css">
+
+            <script defer type="text/javascript" src='../js/Waveform.js'></script>
+            <script defer type="text/javascript" src='../js/examples.js'></script>
+            <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+            <script src="https://use.fontawesome.com/c0111a0039.js"></script>
+    </head>
+
+    <body>
+            <header id="subpageHeader">
+                <img src="../resources/WaveformJS.png">
+                <h1>WaveForm.js</h1>
+            </header>
+
+            <ul id="navBar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/documentation">Documentation</a></li>
+                <li><a class="selectedNav">Examples</a></li>
+            </ul>
+
+            <div id="contentBody">
+                <h2><b>SingleWaveForm</b></h2>
+
+                <p>This WaveForm is a SingleWaveForm, like the one found on the home page. However, instead of using a 
+                    class with a gradient background, the visualization is done using the <code>border-top</code> property:</p>
+
+                <div id="demoContainer">
+                    <p id="demoSongTitle">John Coltrane - Giant Steps</p>
+                    <div class="audioControlButton" id="demoPlayButton">Play</div>
+                </div>
+
+                <p>Additionally, we have created a button to change the song using the <code>changeAudioSource</code> method. 
+                    Interesting to note here is how the piano in the recording of Chopin's Etude hardly uses 
+                    the upper frequency ranges.
+                </p>
+
+                <div class="audioControlButton" id="demoSongButton">Change Song</div>
+
+                <div class="tab">
+                    <button class="tablinks1" onclick="openFile1(event, 'HTML1')">HTML</button>
+                    <button class="tablinks1" onclick="openFile1(event, 'CSS1')">CSS</button>
+                    <button class="tablinks1" onclick="openFile1(event, 'JavaScript1')">JavaScript</button>
+                    <button class="tablinks-hide" onclick="openFile1(event, '')">Collapse</button>
+                </div>
+
+                <div id="HTML1" class="tabcontent1">
+                    <pre class="prettyprint"><code>&lt;div id="demoContainer">
+    &lt;p id="demoSongTitle">John Coltrane - Giant Steps&lt;/p>
+    &lt;div class="audioControlButton" id="demoPlayButton">Play&lt;/div>
+&lt;/div>
+</code></pre>
+                </div>
+
+                <div id="CSS1" class="tabcontent1">
+                    <pre class="prettyprint"><code>#demoContainer {
+    position: relative;
+    height: 200px;
+    width: 60vw;
+    margin-top: 30px;
+    background-image: url("../resources/example_bg.jpg");
+    background-size: cover;
+}
+
+.demoBarNotPlayed {
+    border-top: 2px solid white;
+}
+
+.demoBarNotPlayed:hover {
+    background-color: gray;
+}
+
+.demoBarIsPlayed {
+    border-top: 2px solid gray;
+}
+
+.demoBarIsPlayed:hover {
+    background-color: gray;
+}
+
+#demoSongTitle {
+    color: white;
+    font-size: 150%;
+    margin: 0;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+}
+
+.audioControlButton {
+    background-color: black;
+    text-align: center;
+    color: white;
+    user-select: none;
+    position: absolute;
+    font-size: 125%;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.audioControlButton:hover {
+    background-color: gray;
+}
+
+#demoPlayButton {
+    width: 60px;
+    top: -35px;
+    left: calc(30vw - 30px);
+}
+
+#demoSongButton {
+    position: relative;
+    width: 150px;
+    left: calc(30vw - 75px);
+    margin-bottom: 15px;
+}
+</code></pre>
+                </div>
+
+                <div id="JavaScript1" class="tabcontent1">
+                    <pre class="prettyprint"><code>// Set up first demo waveform
+var example = new SingleWaveForm(
+    containerID = "demoContainer",
+    audio = "../resources/examples_2_alt.mp3",
+    barCount = 256,
+    barClassNotPlayed = "demoBarNotPlayed",
+    barClassIsPlayed = "demoBarIsPlayed",
+)
+
+// Play and pause button
+example_playing = false
+
+document.getElementById("demoPlayButton").addEventListener('click', function() {
+    if (!example_playing) {
+        example.playAudio()
+        example_playing = true
+        document.getElementById("demoPlayButton").innerText = "Pause"
+    } else {
+        example.stopAudio()
+        example_playing = false
+        document.getElementById("demoPlayButton").innerText = "Play"
+    }
+})
+
+// Demo change audio source function: create button to swap audio source
+example_audio = "giant_steps"
+
+document.getElementById("demoSongButton").addEventListener('click', function() {
+    example_playing = false
+    document.getElementById("demoPlayButton").innerText = "Play"
+
+    songTitle = document.getElementById("demoSongTitle")
+    if (example_audio == "torrent") {
+        example_audio = "giant_steps"
+        example.changeAudioSource("../resources/examples_2_alt.mp3")
+        songTitle.innerHTML = "John Coltrane - Giant Steps"
+    } else if (example_audio == "giant_steps") {
+        example_audio = "torrent"
+        example.changeAudioSource("../resources/examples_2.mp3")
+        songTitle.innerHTML = 'Chopin - Etude Op. 10, No. 4 "Torrent"'
+    } else {
+        throw("Something went horribly wrong with the color button")
+    }
+})
+</code></pre>
+                </div>
+
+                <h2><b>DoubleWaveForm</b></h2>
+
+                <p>The next WaveForm is a DoubleWaveForm, which has two bars for each frequency band: one animating 
+                    upwards, and one animating downwards. This time, <code>border-left</code> and <code>border-right</code> properties are used 
+                    to create a design of moving lines, rather than rectangular bars.
+                </p>
+
+                <div id="demo2Container">
+                    <div class="audioControlButton" id="demo2NavBackward">Rewind 10s</div>
+                    <div class="audioControlButton" id="demo2PlayButton">Play</div>
+                    <div class="audioControlButton" id="demo2NavForward">Skip 10s</div>
+                </div>
+
+                <p>This time, clicking bars to navigate is disabled; instead, we use the API to create buttons that 
+                    skip 10 seconds forwards and backwards, using the <code>navForward</code> and <code>navBackward</code> methods. Note we specify 
+                    <code>z-index</code> in css so the buttons remain clickable!
+                </p>
+
+                <div class="tab">
+                    <button class="tablinks2" onclick="openFile2(event, 'HTML2')">HTML</button>
+                    <button class="tablinks2" onclick="openFile2(event, 'CSS2')">CSS</button>
+                    <button class="tablinks2" onclick="openFile2(event, 'JavaScript2')">JavaScript</button>
+                    <button class="tablinks-hide" onclick="openFile2(event, '')">Collapse</button>
+                </div>
+
+                <div id="HTML2" class="tabcontent2">
+                    <pre class="prettyprint"><code>&lt;div id="demo2Container">
+    &lt;div class="audioControlButton" id="demo2NavBackward">Rewind 10s&lt;/div>
+    &lt;div class="audioControlButton" id="demo2PlayButton">Play&lt;/div>
+    &lt;div class="audioControlButton" id="demo2NavForward">Skip 10s&lt;/div>
+&lt;/div>
+</code></pre>
+                </div>
+
+                <div id="CSS2" class="tabcontent2">
+                    <pre class="prettyprint"><code>#demo2Container {
+    position: relative;
+    height: 300px;
+    width: 60vw;
+}
+
+.demo2Bar {
+    border-right: 1px solid forestgreen;
+    border-left: 1px solid forestgreen;
+}
+
+.demo2BarPlayed {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.audioControlButton {
+    background-color: black;
+    text-align: center;
+    color: white;
+    user-select: none;
+    position: absolute;
+    font-size: 125%;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.audioControlButton:hover {
+    background-color: gray;
+}
+
+#demo2PlayButton {
+    width: 60px;
+    left: calc(30vw - 30px);
+    top: 10px;
+    z-index: 1;
+}
+
+#demo2NavForward {
+    width: 120px;
+    left: calc(30vw + 30px + 20px);
+    top: 10px;
+    z-index: 1;
+}
+
+#demo2NavBackward {
+    width: 120px;
+    left: calc(30vw - 30px - 120px - 20px);
+    top: 10px;
+    z-index: 1;
+}
+</code></pre>
+                </div>
+
+                <div id="JavaScript2" class="tabcontent2">
+                    <pre class="prettyprint"><code>// Set up second demo waveform
+var example2 = new DoubleWaveForm(
+    containerID = "demo2Container",
+    audio = "../resources/examples_1.ogg",
+    barCount = 128,
+    barClassNotPlayed = "demo2Bar",
+    barClassIsPlayed = "demo2BarPlayed",
+    clickable = false,
+)
+
+// Play pause button
+example2_playing = false
+
+document.getElementById("demo2PlayButton").addEventListener('click', function() {
+    if (!example2_playing) {
+        example2.playAudio()
+        example2_playing = true
+        document.getElementById("demo2PlayButton").innerText = "Pause"
+    } else {
+        example2.stopAudio()
+        example2_playing = false
+        document.getElementById("demo2PlayButton").innerText = "Play"
+    }
+})
+
+// Navigation buttons
+document.getElementById("demo2NavForward").addEventListener('click', function() {
+    example2.navForward(10)
+})
+document.getElementById("demo2NavBackward").addEventListener('click', function() {
+    example2.navBackward(10)
+})
+</code></pre>
+                </div>
+
+                <h2><b>CircleWaveForm</b></h2>
+
+                <p>The last design currently available in WaveForm.js is the CircleWaveForm. While non-square container 
+                    divs are technically supported, they are not recommended for obvious reasons. Again, note the use of 
+                    <code>z-index</code> in css to place the play button right in the center of the visualizer.
+                </p>
+
+                <div id="demo3Container">
+                    <i id="demo3PlayButton" class="fa fa-play"></i>
+                    <div class="audioControlButton" id="demo3VolDown">Volume Down</div>
+                    <div class="audioControlButton" id="demo3VolMute">Mute</div>
+                    <div class="audioControlButton" id="demo3VolUp">Volume Up</div>
+                </div>
+
+                <p>Here, we have used the volume API <code>toggleMute</code>, <code>incrementVolume</code>, and <code>decrementVolume</code> 
+                    to create basic volume controls, as well as a mute button. 
+                    The difference between muting and stopping is that the playhead continues to move when muted!
+                </p>
+
+                <div class="tab">
+                    <button class="tablinks3" onclick="openFile3(event, 'HTML3')">HTML</button>
+                    <button class="tablinks3" onclick="openFile3(event, 'CSS3')">CSS</button>
+                    <button class="tablinks3" onclick="openFile3(event, 'JavaScript3')">JavaScript</button>
+                    <button class="tablinks-hide" onclick="openFile3(event, '')">Collapse</button>
+                </div>
+    
+                <div id="HTML3" class="tabcontent3">
+                    <pre class="prettyprint"><code>&lt;script src="https://use.fontawesome.com/c0111a0039.js">&lt;/script>
+                        
+&lt;div id="demo3Container">
+    &lt;i id="demo3PlayButton" class="fa fa-play">&lt;/i>
+    &lt;div class="audioControlButton" id="demo3VolDown">Volume Down&lt;/div>
+    &lt;div class="audioControlButton" id="demo3VolMute">Mute&lt;/div>
+    &lt;div class="audioControlButton" id="demo3VolUp">Volume Up&lt;/div>
+&lt;/div></code></pre>
+                </div>
+    
+                <div id="CSS3" class="tabcontent3">
+                    <pre class="prettyprint"><code>#demo3Container {
+    position: relative;
+    height: 500px;
+    width: 500px;
+    margin-bottom: 50px;
+    border-radius: 50%;
+    border: 1px solid black;
+    left: calc(50% - 250px)
+}
+
+.demo3Bar {
+    background-image: linear-gradient(to right, black, gray, black)
+}
+
+#demo3PlayButton {
+    width: 1.5em;
+    height: 1.25em;
+    text-align: center;
+    font-size: 400%;
+    padding-top: 0.25em;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    left: calc(500px / 2 - 0.75em);
+    top: calc(500px / 2 - 0.75em);
+    z-index: 1;
+}
+
+#demo3PlayButton:hover {
+    color: white;
+    background-color: black;
+}
+
+#demo3VolDown {
+    position: absolute;
+    bottom: -40px;
+    width: 150px;
+    left: 50px;
+}
+
+#demo3VolMute {
+    position: absolute;
+    bottom: -40px;
+    width: 60px;
+    left: 220px;
+}
+
+#demo3VolUp {
+    position: absolute;
+    bottom: -40px;
+    width: 150px;
+    left: 300px;
+}</code></pre>
+                </div>
+    
+                <div id="JavaScript3" class="tabcontent3">
+                    <pre class="prettyprint"><code>// Set up third demo waveform
+var example3 = new CircleWaveForm(
+    containerID = "demo3Container",
+    audio = "../resources/examples_2_alt.mp3",
+    barCount = 128,
+    barClassNotPlayed = "demo3Bar",
+    barClassIsPlayed = "demo3Bar",
+    clickable = false,
+)
+
+// Play pause button
+example3_playing = false
+
+document.getElementById("demo3PlayButton").addEventListener('click', function() {
+    if (!example3_playing) {
+        example3.playAudio()
+        example3_playing = true
+        document.getElementById("demo3PlayButton").className = "fa fa-pause"
+    } else {
+        example3.stopAudio()
+        example3_playing = false
+        document.getElementById("demo3PlayButton").className = "fa fa-play"
+    }
+})
+
+// Volume Controls
+document.getElementById("demo3VolDown").addEventListener('click', function() {
+    example3.decrementVolume(0.1)
+})
+document.getElementById("demo3VolMute").addEventListener('click', function() {
+    example3.toggleMute()
+})
+document.getElementById("demo3VolUp").addEventListener('click', function() {
+    example3.incrementVolume(0.1)
+})</code></pre>
+                </div>
+            </div>
+
+            <footer>
+            </footer>
+    </body>
+
+    <footer>
+        <p>WaveForm.js by <a href="https://github.com/FSq-Poplar">FSq-Poplar</a> is licensed under 
+        an <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+    </footer>
+</html>

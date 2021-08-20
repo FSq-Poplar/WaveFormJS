@@ -1,0 +1,9 @@
+#contentBody > ul {
+    width: 100%;
+    list-style-type: disc;
+}
+
+#contentBody > ul > li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
