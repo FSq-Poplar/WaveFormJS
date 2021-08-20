@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+            <title>Waveform.js</title>
+
+            <link rel="stylesheet" href="../styles.css">
+            <link rel="stylesheet" href="styles.css">
+
+            <script defer type="text/javascript" src='../js/Waveform.js'></script>
+            <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    </head>
+
+    <body>
+        <header id="subpageHeader">
+            <img src="../resources/WaveformJS.png">
+            <h1>WaveForm.js</h1>
+        </header>
+
+        <ul id="navBar">
+            <li><a href="/">Home</a></li>
+            <li><a class="selectedNav">Documentation</a></li>
+            <li><a href="/examples">Examples</a></li>
+        </ul>
+
+        <div id="contentBody">
+            <h2><b>Constructor</b></h2>
+
+            <p>Currently, the three visualization designs <code>SingleWaveForm</code>, <code>DoubleWaveForm</code> 
+            and <code>CircleWaveForm</code> all share the same constructor and parameters, making them easily 
+            interchangeable: </p>
+
+            <pre class="prettyprint"><code>// Creating a new WaveForm.js visualization
+var myWaveForm = new WaveForm(
+    containerID: string,
+    audio: string,
+    barCount: int,
+    barClassNotPlayed: string,
+    barClassIsPlayed: string
+)
+</code></pre>
+
+            <p>where</p>
+
+            <ul>
+                <li><code>containerID</code> is the html ID of the container the visualizer will be built in</li>
+                <li><code>audio</code> is a string representing the path to, or CORS header to, the audio file</li>
+                <li><code>barCount</code> is some power of 2 representing the number of frequency bands represented</li>
+                <li><code>barClassNotPlayed</code> is the CSS class name applied to sections of audio that have not been passed</li>
+                <li><code>barClassIsPlayed</code> is the CSS class name applied to sections of audio that have been passed</li>
+            </ul>
+
+            <p>Note that while <code>containerID</code> is not required to be empty, the WaveForm object will be built 
+            as if the container is empty and any inner HTML (such as controls) should define a <code>z-index</code> 
+            to appear on top, or be interactable/clickable.</p>
+
+            <p>Additionally, any CSS applied to the container element will not be affected; this means sizes, background 
+            images etc. are fully in control of the user. Such applications can be seen on the examples page.</p>
+
+            <h2><b>Options</b></h2>
+
+            <p>Currently WaveForm.js objects have only one option, <code>clickable</code>. This is an optional boolean 
+            passed at the end of the constructor, with a default value of true; this boolean determines whether or 
+            not the audio can be moved through by clicking on the corresponding bars.</p>
+
+            <pre class="prettyprint"><code>var myWaveForm = new WaveForm(
+    // Mandatory arguments to constructor here 
+    clickable?: bool
+)
+</code></pre>
+
+            <p>Note that should new options be added in the future, they will likely make use of parameter 
+            deconstruction and the current implementation of <code>clickable</code> will become deprecated.</p>
+
+            <h2><b>API</b></h2>
+
+            <p>After creating a WaveForm.js visualizer (with <code>var myWaveForm = new WaveForm(...)</code>) the 
+            following methods can be called to create controls or modify the visualization and sound: </p>
+
+            <ul>
+                <li><code>playAudio()</code> - Begins or resumes audio playback.</li>
+                <li><code>stopAudio()</code> - Pauses audio playback.</li>
+                <li><code>navigate(seconds)</code> - Navigates to time <code>seconds</code> in the audio, if possible.</li>
+                <li><code>navigateRatio(ratio)</code> - For <code>0 &le; ratio &le; 1</code>, sets playhead to <code>ratio</code> times the total duration.</li>
+                <li><code>navForward(seconds)</code> - Moves playhead <code>seconds</code>, or stops playback if past the end.</li>
+                <li><code>navBackward(seconds)</code> - Moves playhead <code>seconds</code> backwards, or the beginning if the destination time is before 0.</li>
+                <li><code>changeVolume(level)</code> - For <code>0 &le; level &le; 1</code>, sets the volume to the provided level.</li>
+                <li><code>incrementVolume(increase)</code> - Increases the volume by <code>increase</code>, to a maximum of 1.</li>
+                <li><code>decrementVolume(decrease)</code> - Decreases the volume by <code>decrease</code>, to a minimum of 0.</li>
+                <li><code>toggleMute()</code> - Mutes volume. Note this does not stop playback, and the playhead will continue to move!</li>
+                <li><code>changeAudioSource(newSource)</code> - Sets audio source to the file at or CORS header <code>newSource</code>. Resets playback.</li>
+                <li><code>changeNotPlayedBarClass(newClass)</code> - Changes the class name applied to not played audio to string <code>newClass</code>.</li>
+                <li><code>changeIsPlayedBarClass(newClass)</code> - Changes the class name applied to played audio to string <code>newClass</code>.</li>
+            </ul>
+        </div>
+    </body>
+
+    <footer>
+        <p>WaveForm.js by <a href="https://github.com/FSq-Poplar">FSq-Poplar</a> is licensed under 
+        an <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+    </footer>
+</html>

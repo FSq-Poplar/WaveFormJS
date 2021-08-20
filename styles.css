@@ -1,0 +1,221 @@
+/* Home only */
+#homeHeader {
+    width: calc(100% - 40vw);
+    height: 25vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+        url(./resources/header_blue.jpg);
+    background-size: 100%;
+    padding: 4vh 20vw;
+}
+
+#homeHeader > img {
+    width: 4.5vw;
+    height: 4.5vw;
+    float: left;
+}
+
+.headerAlign {
+    float: left;
+    width: 54vw;
+    height: 4.5vw;
+    position: relative;
+}
+
+.headerAlign > h1 {
+    font-size: 300%;
+    margin: 0 0 0 1vw;
+    color: white;
+    position: absolute;
+    bottom: 0;
+}
+
+/* Shared */
+* {
+    font-family: Arial;
+}
+
+body {
+    margin: 0;
+}
+
+#subpageHeader {
+    width: 100%;
+    height: 10vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+        url(../resources/header_blue.jpg);
+    position: relative;
+}
+
+#subpageHeader > img {
+    margin: 1vh;
+    width: 8vh;
+    height: 8vh;
+    float: left;
+}
+
+#subpageHeader > h1 {
+    font-size: 250%;
+    color: white;
+    float: left;
+    width: calc(100% - 10vh);
+    margin: 5vh 0 0 0;
+}
+
+.audioControlButton {
+    background-color: black;
+    text-align: center;
+    color: white;
+    user-select: none;
+    position: absolute;
+    font-size: 125%;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.audioControlButton:hover {
+    background-color: gray;
+}
+
+p {
+    font-size: 110%;
+}
+
+pre {
+    background-color: beige;
+    width: calc(100% - 20px);
+    padding: 5px 10px !important;
+    border: none !important;
+}
+
+code {
+    font-family: Menlo, monospace;
+    color: #e83e8c;
+}
+
+/* Navigation, also shared */
+#navBar {
+    margin: 5vh 0;
+    width: 16vw;
+    float: left;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 2.5vw;
+    width: 60px;
+}
+
+li a {
+    display: block;
+    width: calc(16vw - 20px);
+    height: 2em;
+    font-size: 115%;
+    text-decoration: none;
+    color: black;
+    padding: 1em 0 0 20px;
+    user-select: none;
+}
+
+li a:hover {
+    background-color: lightgrey;
+    text-decoration: underline;
+    border-left: 10px solid black;
+    width: calc(16vw - 30px);
+}
+
+.selectedNav {
+    background-color: lightgrey;
+    border-left: 10px solid black;
+    width: calc(16vw - 30px);
+}
+
+.selectedNav:hover {
+    text-decoration: none;
+}
+
+footer {
+    width: calc(100% - 2vw);
+    float: left;
+    padding: 0 1vw 0 1vw;
+    background-color: lightgray;
+    font-size: 75%;
+    margin-top: 3vh;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+/* Content and Documentation, also shared */
+#contentBody {
+    width: 60vw;
+    float: left;
+}
+
+#contentBody > h2 {
+    padding-top: 2vh;
+    font-size: 175%;
+    font-weight: normal;
+}
+
+/* Home page visualizer demo */
+#homeWaveContainer {
+    height: 13vh;
+    width: 60vw;
+    margin: 0;
+    position: absolute;
+    top: 15vh;
+}
+
+#homePlayButton {
+    width: 80px;
+    bottom: -4vh;
+    left: calc(30vw - 80px - 20px);
+}
+
+#homeThemeButton {
+    width: 80px;
+    bottom: -4vh;
+    left: calc(30vw + 20px);
+}
+
+.homeBarGradientNotPlayed {
+    background-image: linear-gradient(aqua, navy);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.homeBarGradientNotPlayed:hover {
+    background-image: linear-gradient(dodgerblue, navy);
+}
+
+.homeBarGradientIsPlayed {
+    background-image: linear-gradient(dodgerblue, navy);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.homeBarGradientIsPlayed:hover {
+    background-image: linear-gradient(aqua, navy);
+}
+
+.homeBarGradientNotPlayedAlt {
+    background-image: linear-gradient(gold, orangered);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.homeBarGradientNotPlayedAlt:hover {
+    background-image: linear-gradient(orange, orangered);
+}
+
+.homeBarGradientIsPlayedAlt {
+    background-image: linear-gradient(orange, orangered);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.homeBarGradientIsPlayedAlt:hover {
+    background-image: linear-gradient(gold, orangered);
+}
