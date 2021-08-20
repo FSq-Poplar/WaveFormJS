@@ -3,8 +3,10 @@ var example = new SingleWaveForm(
     containerID = "demoContainer",
     audio = "../resources/examples_2_alt.mp3",
     barCount = 256,
-    barClassNotPlayed = "demoBarNotPlayed",
-    barClassIsPlayed = "demoBarIsPlayed",
+    barClass = "demoBarNotPlayed",
+    options = {
+        barClassPlayed: "demoBarIsPlayed"
+    }
 )
 
 // Play and pause button
@@ -66,9 +68,11 @@ var example2 = new DoubleWaveForm(
     containerID = "demo2Container",
     audio = "../resources/examples_3.mp3",
     barCount = 64,
-    barClassNotPlayed = "demo2Bar",
-    barClassIsPlayed = "demo2BarPlayed",
-    clickable = false,
+    barClass = "demo2Bar",
+    options = {
+        barClassPlayed: "demo2BarPlayed",
+        clickable: false
+    }
 )
 
 // Play pause button
@@ -118,9 +122,11 @@ var example3 = new CircleWaveForm(
     containerID = "demo3Container",
     audio = "../resources/examples_4.mp3",
     barCount = 128,
-    barClassNotPlayed = "demo3Bar",
-    barClassIsPlayed = "demo3Bar",
-    clickable = false,
+    barClass = "demo3Bar",
+    options = {
+        barClassIsPlayed: "demo3Bar",
+        clickable: false
+    }
 )
 
 // Play pause button

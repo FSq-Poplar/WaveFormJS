@@ -206,7 +206,7 @@
             this.audioElement.src = newSource
         },
     
-        changeNotPlayedBarClass: function(newClass) {
+        changeBarClass: function(newClass) {
             /**
              * Changes the classname used on bars not yet played to @param newClass
              * 
@@ -219,11 +219,11 @@
                 this.clearBarClasses()
                 this.barClasses.notPlayed = newClass
             } else {
-                console.warn("Waveform.js ERROR object passed to changeNotPlayedBarClass is not a string")
+                console.warn("Waveform.js ERROR object passed to changeBarClass is not a string")
             }
         },
     
-        changeIsPlayedBarClass: function(newClass) {
+        changeBarClassPlayed: function(newClass) {
             /**
              * Changes the classname used on bars which have been played to @param newClass
              * 
@@ -236,7 +236,7 @@
                 this.clearBarClasses()
                 this.barClasses.isPlayed = newClass
             } else {
-                console.warn("Waveform.js ERROR object passed to changeIsPlayedBarClass is not a string")
+                console.warn("Waveform.js ERROR object passed to changeBarClassPlayed is not a string")
             }  
         },
     
@@ -256,7 +256,7 @@
         }
     }
     
-    function setupWaveForm(waveform, containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed) {
+    function setupWaveForm(waveform, containerID, audio, barCount, barClass, options) {
         /**
          * Sets up the common elements between different WaveForm designs, namely the
          * wrapper div, classes, and audio elements
@@ -271,9 +271,12 @@
          * @param barCount          How many bars should be constructed, MUST BE A POWER OF 2 and AT LEAST 16, MAX 1024
          * @param barClassNotPlayed className which will be used when displaying visualizer bars of audio
          *                          which has yet to be played.
-         * @param barClassPlayed    className which will be used when displaying visualizer bars of audio
-         *                          which has been played.
-         *                          If not provided, the class will not change.
+         * @param options           additional, optional arguments for futher functional and visual customization
+         *      @property barClassPlayed    className which will be used when displaying visualizer bars of audio which
+         *                                  HAS been played.
+         *                                  Default: value given for @param barClass
+         *      @property clickable         bool which deterines whether clicking a bar navigates the audio
+         *                                  Default: True
          * 
          * @property wrapper        Wrapper element in which the visualizer will be built within
          *                          Just a full size div within @param containerID, but with non static positioning
@@ -294,9 +297,16 @@
             waveform.barCount = barCount
         }
     
-        waveform.barClasses = {
-            "notPlayed": barClassNotPlayed,
-            "isPlayed": barClassIsPlayed,
+        if (options.barClassPlayed != null) {
+            waveform.barClasses = {
+                "notPlayed": barClass,
+                "isPlayed": options.barClassPlayed,
+            }
+        } else {
+            waveform.barClasses = {
+                "notPlayed": barClass,
+                "isPlayed": barClass,
+            }
         }
     
         waveform.wrapper = document.createElement('div')
@@ -318,7 +328,7 @@
         waveform.audioData = new Uint8Array(waveform.analyser.frequencyBinCount)
     }
     
-    function SingleWaveForm(containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed, clickable = true) {
+    function SingleWaveForm(containerID, audio, barCount, barClass, options = {}) {
         /**
          * Constructs a new Waveform object within the element with the provided ID.
          * One bar per frequency band, moving upwards relative to bottom of container div
@@ -326,20 +336,9 @@
          * @since   0.7.0
          * @access  public
          * 
-         * @param containerID       See @function setupWaveForm
-         * @param barCount          See @function setupWaveForm
-         * @param barClassNotPlayed See @function setupWaveForm
-         * @param barClassPlayed    See @function setupWaveForm
-         * @param clickable         Whether or not clicking navigates through the audio. Default true
-         * 
-         * @property wrapper        See @function setupWaveForm
-         * @property barClasses     See @function setupWaveForm
-         * @property audioElement   See @function setupWaveForm
-         * @property audioContext   See @function setupWaveForm
-         * @property audioAnalyser  See @function setupWaveForm
-         * @property audioData      See @function setupWaveForm
+         * @parameters and @properties - see @function setupWaveForm
          */
-        setupWaveForm(this, containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed)
+        setupWaveForm(this, containerID, audio, barCount, barClass, options)
     
         for (let i = 0; i < this.barCount; i++) {
             let bar = document.createElement('div')
@@ -349,8 +348,8 @@
             bar.style.width = `calc(${100/this.barCount}% - 1px)`
             bar.style.bottom = "0"
             bar.style.left = `${(100/this.barCount) * i}%`
-    
-            if (clickable) {
+
+            if (!(options.clickable != null && options.clickable == false)) {
                 bar.onclick = function() {
                     const ratio = (i / this.barCount)
                     this.navigateRatio(ratio)
@@ -402,7 +401,7 @@
         }.bind(waveform))
     }
     
-    function DoubleWaveForm(containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed, clickable = true) {
+    function DoubleWaveForm(containerID, audio, barCount, barClass, options = {}) {
         /**
          * Constructs a new Waveform object within the element with the provided ID.
          * Two bar per frequency band, moving up and down relative to the div's vertical center
@@ -410,20 +409,9 @@
          * @since   0.7.0
          * @access  public
          * 
-         * @param containerID       See @function setupWaveForm
-         * @param barCount          See @function setupWaveForm
-         * @param barClassNotPlayed See @function setupWaveForm
-         * @param barClassPlayed    See @function setupWaveForm
-         * @param clickable         Whether or not clicking navigates through the audio. Default true
-         * 
-         * @property wrapper        See @function setupWaveForm
-         * @property barClasses     See @function setupWaveForm
-         * @property audioElement   See @function setupWaveForm
-         * @property audioContext   See @function setupWaveForm
-         * @property audioAnalyser  See @function setupWaveForm
-         * @property audioData      See @function setupWaveForm
+         * @parameters and @properties - see @function setupWaveForm
          */
-        setupWaveForm(this, containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed)
+        setupWaveForm(this, containerID, audio, barCount, barClass, options)
     
         for (let i = 0; i < this.barCount; i++) {
             let bar_top = document.createElement('div')
@@ -441,8 +429,8 @@
             bar_bot.style.width = `calc(${100/this.barCount}% - 1px)`
             bar_bot.style.left = `${(100/this.barCount) * i}%`
             bar_bot.style.transform = "rotate(180deg)"
-    
-            if (clickable) {
+
+            if (!(options.clickable != null && options.clickable == false)) {
                 bar_bot.onclick = function() {
                     const ratio = (i / this.barCount)
                     this.navigateRatio(ratio)
@@ -515,7 +503,7 @@
         }.bind(waveform))
     }
     
-    function CircleWaveForm(containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed, clickable = true) {
+    function CircleWaveForm(containerID, audio, barCount, barClass, options = {}) {
         /**
          * Constructs a new Waveform object within the element with the provided ID.
          * One bar per frequency band, moving outwards from div center
@@ -523,20 +511,9 @@
          * @since   0.8.0
          * @access  public
          * 
-         * @param containerID       See @function setupWaveForm
-         * @param barCount          See @function setupWaveForm
-         * @param barClassNotPlayed See @function setupWaveForm
-         * @param barClassPlayed    See @function setupWaveForm
-         * @param clickable         Whether or not clicking navigates through the audio. Default true
-         * 
-         * @property wrapper        See @function setupWaveForm
-         * @property barClasses     See @function setupWaveForm
-         * @property audioElement   See @function setupWaveForm
-         * @property audioContext   See @function setupWaveForm
-         * @property audioAnalyser  See @function setupWaveForm
-         * @property audioData      See @function setupWaveForm
+         * @parameters and @properties - see @function setupWaveForm
          */
-        setupWaveForm(this, containerID, audio, barCount, barClassNotPlayed, barClassIsPlayed)
+        setupWaveForm(this, containerID, audio, barCount, barClass, options)
     
         for (let i = 0; i < this.barCount; i++) {
             let bar = document.createElement('div')
@@ -545,8 +522,8 @@
             bar.style.margin = "0 1px 0 0"
             bar.style.width = `${100/this.barCount}%`
             bar.style.transform = `rotate(${360 * i / barCount + 1}deg)`
-    
-            if (clickable) {
+
+            if (!(options.clickable != null && options.clickable == false)) {
                 bar.onclick = function() {
                     const ratio = (i / this.barCount)
                     this.navigateRatio(ratio)
