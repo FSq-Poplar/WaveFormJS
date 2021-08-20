@@ -58,8 +58,7 @@ var visualization = new SingleWaveForm(
     containerID = "visualizerContainer", 
     audio = "./path_to_audio/audio.mp3", 
     barCount = 64, 
-    barClassNotPlayed = "firstClassName",
-    barClassIsPlayed = "secondClassName",
+    barClassPlayed = "firstClassName"
 )</code></pre>
 
                 <p>From there, controls can be constructed using the WaveForm object's API:</p>
@@ -71,8 +70,7 @@ document.getElementById("playButton").addEventListener('click', function() {
 
 // Add change color button
 document.getElementById("changeColorButton").addEventListener('click', function() {
-    visualization.changeNotPlayedBarClass("thirdClassName")
-    visualization.changeIsPlayedBarClass("fourthClassName")
+    visualization.changeBarClass("secondClassName")
 })</code></pre>
 
                 <h2><b>Browser Support</b></h2>
@@ -82,7 +80,7 @@ document.getElementById("changeColorButton").addEventListener('click', function(
 
             <footer>
                 <p>WaveForm.js by <a href="https://github.com/FSq-Poplar">FSq-Poplar</a> is licensed under 
-                an <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+                a <a href="https://opensource.org/licenses/gpl-3.0.html">GPL-3 License</a>.</p>
             </footer>
     </body>
 </html>

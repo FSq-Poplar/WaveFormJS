@@ -132,8 +132,10 @@ var example = new SingleWaveForm(
     containerID = "demoContainer",
     audio = "../resources/examples_2_alt.mp3",
     barCount = 256,
-    barClassNotPlayed = "demoBarNotPlayed",
-    barClassIsPlayed = "demoBarIsPlayed",
+    barClass = "demoBarNotPlayed",
+    options = {
+        barClassPlayed: "demoBarIsPlayed"
+    }
 )
 
 // Play and pause button
@@ -168,7 +170,7 @@ document.getElementById("demoSongButton").addEventListener('click', function() {
         example.changeAudioSource("../resources/examples_2.mp3")
         songTitle.innerHTML = 'Chopin - Etude Op. 10, No. 4 "Torrent"'
     } else {
-        throw("Something went horribly wrong with the color button")
+        throw("Something went horribly wrong with the change song button")
     }
 })
 </code></pre>
@@ -267,11 +269,13 @@ document.getElementById("demoSongButton").addEventListener('click', function() {
                     <pre class="prettyprint"><code>// Set up second demo waveform
 var example2 = new DoubleWaveForm(
     containerID = "demo2Container",
-    audio = "../resources/examples_1.ogg",
-    barCount = 128,
-    barClassNotPlayed = "demo2Bar",
-    barClassIsPlayed = "demo2BarPlayed",
-    clickable = false,
+    audio = "../resources/examples_3.mp3",
+    barCount = 64,
+    barClass = "demo2Bar",
+    options = {
+        barClassPlayed: "demo2BarPlayed",
+        clickable: false
+    }
 )
 
 // Play pause button
@@ -397,11 +401,13 @@ document.getElementById("demo2NavBackward").addEventListener('click', function()
                     <pre class="prettyprint"><code>// Set up third demo waveform
 var example3 = new CircleWaveForm(
     containerID = "demo3Container",
-    audio = "../resources/examples_2_alt.mp3",
+    audio = "../resources/examples_4.mp3",
     barCount = 128,
-    barClassNotPlayed = "demo3Bar",
-    barClassIsPlayed = "demo3Bar",
-    clickable = false,
+    barClass = "demo3Bar",
+    options = {
+        barClassIsPlayed: "demo3Bar",
+        clickable: false
+    }
 )
 
 // Play pause button
@@ -438,6 +444,6 @@ document.getElementById("demo3VolUp").addEventListener('click', function() {
 
     <footer>
         <p>WaveForm.js by <a href="https://github.com/FSq-Poplar">FSq-Poplar</a> is licensed under 
-        an <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+        a <a href="https://opensource.org/licenses/gpl-3.0.html">GPL-3 License</a>.</p>
     </footer>
 </html>

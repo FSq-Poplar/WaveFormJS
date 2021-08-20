@@ -38,19 +38,17 @@ var myWaveForm = new WaveForm(
     containerID: string,
     audio: string,
     barCount: int,
-    barClassNotPlayed: string,
-    barClassIsPlayed: string
+    barClass: string
 )
 </code></pre>
 
             <p>where</p>
 
             <ul>
-                <li><code>containerID</code> is the html ID of the container the visualizer will be built in</li>
-                <li><code>audio</code> is a string representing the path to, or CORS header to, the audio file</li>
-                <li><code>barCount</code> is some power of 2 representing the number of frequency bands represented</li>
-                <li><code>barClassNotPlayed</code> is the CSS class name applied to sections of audio that have not been passed</li>
-                <li><code>barClassIsPlayed</code> is the CSS class name applied to sections of audio that have been passed</li>
+                <li><code>containerID (string)</code> is the html ID of the container the visualizer will be built in</li>
+                <li><code>audio (string)</code> is a string representing the path to, or CORS header to, the audio file</li>
+                <li><code>barCount (int)</code> is some power of 2 representing the number of frequency bands represented</li>
+                <li><code>barClass (string)</code> is the CSS class name applied to sections of audio that have not been passed</li>
             </ul>
 
             <p>Note that while <code>containerID</code> is not required to be empty, the WaveForm object will be built 
@@ -62,18 +60,24 @@ var myWaveForm = new WaveForm(
 
             <h2><b>Options</b></h2>
 
-            <p>Currently WaveForm.js objects have only one option, <code>clickable</code>. This is an optional boolean 
-            passed at the end of the constructor, with a default value of true; this boolean determines whether or 
-            not the audio can be moved through by clicking on the corresponding bars.</p>
+            <p>WaveFormJS will parse the following options:</p>
 
-            <pre class="prettyprint"><code>var myWaveForm = new WaveForm(
-    // Mandatory arguments to constructor here 
-    clickable?: bool
+            <ul>
+                <li><code>barClassPlayed (string)</code> is the CSS class name applied to sections of audio that have been passed</li>
+                <li><code>clickable (bool)</code> determines whether clicking on the visualizer's bars navigates audio</li>
+            </ul>
+
+            <pre class="prettyprint"><code>// Creating a visualization with optional arguments
+var myWaveForm = new WaveForm(
+    containerID: string,
+    audio: string,
+    barCount: int,
+    barClass: string
+    options: {
+        option: value
+    }
 )
 </code></pre>
-
-            <p>Note that should new options be added in the future, they will likely make use of parameter 
-            deconstruction and the current implementation of <code>clickable</code> will become deprecated.</p>
 
             <h2><b>API</b></h2>
 
@@ -92,14 +96,14 @@ var myWaveForm = new WaveForm(
                 <li><code>decrementVolume(decrease)</code> - Decreases the volume by <code>decrease</code>, to a minimum of 0.</li>
                 <li><code>toggleMute()</code> - Mutes volume. Note this does not stop playback, and the playhead will continue to move!</li>
                 <li><code>changeAudioSource(newSource)</code> - Sets audio source to the file at or CORS header <code>newSource</code>. Resets playback.</li>
-                <li><code>changeNotPlayedBarClass(newClass)</code> - Changes the class name applied to not played audio to string <code>newClass</code>.</li>
-                <li><code>changeIsPlayedBarClass(newClass)</code> - Changes the class name applied to played audio to string <code>newClass</code>.</li>
+                <li><code>changeBarClass(newClass)</code> - Changes the class name applied to not played audio to string <code>newClass</code>.</li>
+                <li><code>changeBarClassPlayed(newClass)</code> - Changes the class name applied to played audio to string <code>newClass</code>.</li>
             </ul>
         </div>
     </body>
 
     <footer>
         <p>WaveForm.js by <a href="https://github.com/FSq-Poplar">FSq-Poplar</a> is licensed under 
-        an <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+        a <a href="https://opensource.org/licenses/gpl-3.0.html">GPL-3 License</a>.</p>
     </footer>
 </html>
